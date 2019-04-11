@@ -1,0 +1,14 @@
+server:
+  port: 8001
+spring:
+  application:
+    name: spring-cloud-config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/ThomaWh/SpringCloud.git #仓库地址
+          search-paths: config-repo #对应仓库相对路径,可以配置多个用","分割
+          username: ThomaWh
+          password: wang961226
+
