@@ -1,0 +1,30 @@
+server:
+  port: 8080
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: neo_route
+          uri: http://www.ityouknow.com #目标服务地址,路由至该uri
+          predicates:
+            # - Query=smile Query Route Predicate 支持传入两个参数，一个是属性名一个为属性值，属性值可以是正则表达式。(在请求中包含smile这个参数即可curl http://localhost:8080?smile=1)
+            # - Path=/foo/{segment} Path Route Predicate 接收一个匹配路径的参数来判断是否走路由。(crul localhost:8080/foo/x)
+            # - Path=/spring-cloud  匹配 ip:port/path
+            # - before=2018-01-20T06:06:06+08:00[Asia/Shanghai]  匹配：访问时间应该在该设置时间之前
+            # - After=2018-01-20T06:06:06+08:00[Asia/Shanghai]   匹配：访问时间应该在该设置时间之后
+            # - Between=2018-01-20T06:06:06+08:00[Asia/Shanghai], 2019-04-20T06:06:06+08:00[Asia/Shanghai] 匹配 在设置时间之间
+
+            # - Cookie=ityouknow, kee.e   Cookie Route Predicate 可以接收两个参数，一个是 Cookie name ,一个是正则表达式，
+            #   路由规则会通过获取对应的 Cookie name 值和正则表达式去匹配，如果匹配上就会执行路由，如果没有匹配上则不执行(curl localhost:8080 --cookie "ityouknow=kee.e")
+
+            # - Header=requestId,\d+ Header Route Predicate 和 Cookie Route Predicate 一样，也是接收 2 个参数，
+            #   一个 header 中属性名称和一个正则表达式，这个属性值和正则表达式匹配则执行。(curl localhost:8080 -H "requestId:666666")
+
+            #  - Host=*.bb Host Route Predicate 接收一组参数，一组匹配的域名列表，这个模板是一个 ant 分隔的模板，用.号作为分隔符。它通过参数中的主机地址作为匹配规则。
+            #   (localhost:8080 -H "host:aa.bb")
+
+            #  - Method=get/post 可以通过是 POST、GET、PUT、DELETE 等不同的请求方式来进行路由。(curl 默认以get方式请求,post:curl -X POST http://localhost:8080)
+  #id：我们自定义的路由 ID，保持唯一
+  #uri：目标服务地址
+  #predicates：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）。
+  #filters：过滤规则，本示例暂时没用。
