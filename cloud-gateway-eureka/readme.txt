@@ -1,0 +1,3 @@
+eureka:为gateway服务
+upeureka:为eureka注册服务中心(基于之前的eureka进行升级改造)
+producer/producer1:服务

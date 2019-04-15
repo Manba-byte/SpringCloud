@@ -1,0 +1,25 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: cloud-gateway-eureka
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #默认为false,设置为true开启根据服务中心 serviceId 自动创建路由的功能,微服务名默认使用大写访问。
+      routes:
+        - id: add_request_parameter_route
+          uri: lb://spring-cloud-producer #格式为：lb://应用注册服务名
+          filters:
+            - AddRequestParameter=foo, bar #添加foo属性值为bar
+          predicates:
+            - Method=GET
+#访问路径localhost:8080/foo,由于配置了服务名,会在该服务的两个端口之间进行轮询
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka/
+logging:
+  level:
+    org.springframework.cloud.gateway: debug
